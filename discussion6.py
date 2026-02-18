@@ -57,7 +57,16 @@ class HorseRaces:
             inner keys are (str) races, inner values are (int) race times
             EXAMPLE: {'Special Week': {'Tenno Sho Fall': 16.5, 'Tenno Sho Spring': 16.3, 'Teio Sho': 17.0}}
         '''
-        pass
+        header=table[0]
+        horse_info={}
+        for row in table[1:]:
+            horse=row[0]
+            horse_information={}
+            for i in range(1,len(row)):
+                horse_information[header[i]]=float(row[i])
+            horse_info[horse]=horse_information
+        return horse_info
+
 
 ###############################################################################
 ##### TASK 2
@@ -75,7 +84,16 @@ class HorseRaces:
             tuple of fastest race name and the time
             EXAMPLE: ('Teio Sho', 14.8)
         '''
-        pass
+        fastest_time=999.9
+        fastest_race=None
+        if horse not in self.race_dict:
+            return (None,999.9)
+        horse_information=self.race_dict[horse]
+        for race,time in horse_information.items():
+            if time<fastest_time:
+                fastest_time=time
+                fastest_race=race
+        return (fastest_race, fastest_time)
 
 ###############################################################################
 ##### TASK 3
@@ -89,7 +107,15 @@ class HorseRaces:
             A dictionary of tuples of each horse, with their fastest race and time.
             EXAMPLE: {"Oguri Cap": ("Tenno Sho Fall", 16.6), "Mejiro McQueen": ("Tenno Sho Fall", 16.1)}
         '''
-        pass
+        fastest_races={}
+        for horse,horse_information in self.race_dict.items():
+            fastest_time=999.9
+            for race,time in horse_information.items():
+                if time<fastest_time:
+                    fastest_time=time
+                    fastest_race=race
+                fastest_races[horse]=(fastest_race,fastest_time)
+        return fastest_races
 
 ###############################################################################
 ##### TASK 4
@@ -103,7 +129,13 @@ class HorseRaces:
             A dictionary with each horse and their average time.
             EXAMPLE: {'Gold Ship': 16.5, 'Daiwa Scarlet': 17.2}
         '''
-        pass
+        avg_times={}
+        for horse,horse_information in self.race_dict.items():
+            total_time=0
+            for race_time in horse_information.values():
+                total_time+=race_time
+            avg_times[horse]=total_time/len(horse_information)
+        return avg_times
 
 ###############################################################################
 ##### DO NOT MODIFY THE UNIT TESTS BELOW!
